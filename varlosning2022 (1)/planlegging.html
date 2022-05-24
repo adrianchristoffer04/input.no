@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title> Planlegging </title>
+    <link rel="stylesheet" href="varlosning.css">
+</head>
+<body>
+
+    <ul class="navbar">
+        <li> <a href="index.html"> Hjem </a> </li>
+        <li> <a href="nettbutikk.html"> Nettbutikk </a> </li>
+        <li> <a href="informasjonskapsler.html"> Informasjonskapsler </a> </li>
+        <li> <a href="webserver.html"> Webserver </a> </li>
+        <li> <a class="active" href="planlegging.html"> Planlegging </a> </li>
+        <li> <a href="algoritmer.html"> Algoritmer </a> </li>
+        <li> <a href="egenvurdering.html"> Egenvurdering </a> </li>
+        <li> <a href="krigeniukraina.html"> Krigen i Ukraina </a> </li>
+        <li> <a href="avtale.html"> Avtale </a></li>
+    </ul>
+
+    <select style="margin: 40px" class="btn-innlegg">
+        <option value="planlegging"> Planlegging av prosjektet </option>
+        <option value="design"> Design, universell utforming og bilder </option>
+    </select>
+
+    <div class="hoved">
+        <div class="tekstfelt" id="tekstfelt">
+            <h3 id="tekstfelt-h"> Planlegging </h3>
+            <p id="tekstfelt-p"> For planlegging av prosjektet valgte jeg å benytte OneNote, der jeg lagde en oversiktlig liste med
+                punkter til ulike sider og hva de skal inneholde. Jeg valgte å ta meg god tid til å planlegge fordi det
+                er en stor oppgave som krever god struktur og at jeg har en god plan for gjennomføringen. Designskissene
+                for nettstedet tegnet jeg i Microsoft Paint. De ser slike ut: </p>
+        </div>
+        <img id="hoved-img" src="./images/designskisser.png" alt="Designskisser for nettstedet, laget av Adrian Christoffer F. Andersen" title="Designskisser for nettstedet, laget av Adrian Christoffer F. Andersen">
+    </div>
+
+    <div class="universell-utforming-tabell">
+        <p> I tabellen nedenfor ser du en oversikt over hvilke krav for universell utforming som er utfylt på dette nettstedet. Rød X betyr ikke oppfylt og grønn ✓ betyr oppfylt. </p>
+        <table>
+            <tr>
+                <th> Krav </th>
+                <th> X / ✓ </th>
+            </tr>
+            <tr>
+                <td> Bilder og grafikk </td>
+                <td style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Bruk av farger </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> CAPTCHA </td>
+                <td style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> Dokumenter på nettsider </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Klikkeflate (Navigasjon) </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Kodestandarer og validering </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Kontrast </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Lenker </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Mobile løsninger </td>
+                <td  style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> Navigasjonsmetoder </td>
+                <td  style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> PDF </td>
+                <td  style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> Powerpoint </td>
+                <td  style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> Publiseringssystem </td>
+                <td style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> Redigering og innlogging </td>
+                <td style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> Sidetittel (Navigasjon) </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Skjema </td>
+                <td style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Språk i koden </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Synstolking av video </td>
+                <td style="color: red"> X </td>
+            </tr>
+            <tr>
+                <td> Tabeller </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Tastaturnavigasjon </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Tekst og struktur </td>
+                <td  style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Utforming og presentasjon </td>
+                <td style="color: green"> ✓ </td>
+            </tr>
+            <tr>
+                <td> Video og lydopptak </td>
+                <td style="color: red"> X </td>
+            </tr>
+        </table>
+        <p> Retningslinjer: <a href="https://www.uutilsynet.no/nettsteder/losningsforslag-nettsider/36"> https://www.uutilsynet.no/nettsteder/losningsforslag-nettsider/36 </a> </p>
+    </div>
+
+
+<script>
+
+    let nedtrykksmeny = document.querySelector("select")
+    nedtrykksmeny.addEventListener("change", endreInnhold);
+
+    //funksjon som endrer innholdet på siden
+    function endreInnhold() {
+        if (nedtrykksmeny.value === "design") {
+            document.getElementById("tekstfelt-h").innerText = "Design, universell utforming og bilder";
+            document.getElementById("tekstfelt-p").innerText = "Alle bildene jeg benytter har et alt-attributt som angir hva bildet viser, type lisens og hvem som har opphavsrett til bildet. Jeg bruker kun bilder jeg har lisens til å bruke. I tillegg har bildene title-attributtet som lar bruker se bildeteksten ved å dra musepekeren over bildet. Jeg benyttet Adobe Color for å finne en fargepalett som passer til bildet på hovedsiden.";
+            document.getElementById("hoved-img").setAttribute("src", "./images/adobecolor.png");
+        } else {
+            document.getElementById("tekstfelt-h").innerText = "Planlegging";
+            document.getElementById("tekstfelt-p").innerText = "For planlegging av prosjektet valgte jeg å benytte OneNote, der jeg lagde en oversiktlig liste med punkter til ulike sider og hva de skal inneholde. Jeg valgte å ta meg god tid til å planlegge fordi det er en stor oppgave som krever god struktur og at jeg har en god plan for gjennomføringen. Designskissene for nettstedet tegnet jeg i Microsoft Paint. De ser slike ut:";
+            document.getElementById("hoved-img").setAttribute("src", "./images/designskisser.png");
+        }
+    }
+
+
+</script>
+</body>
+</html>

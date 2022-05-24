@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title> input.no </title>
+    <link rel="stylesheet" href="varlosning.css">
+</head>
+<body>
+
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1> input.no </h1>
+            <p> Du, jeg, alle menn </p>
+            <a class="btn-bgstroke" href="nettbutikk.html"> Start handelen </a>
+        </div>
+    </div>
+
+    <ul class="navbar">
+        <li> <a class="active" href="index.html"> Hjem </a> </li>
+        <li> <a href="nettbutikk.html"> Nettbutikk </a> </li>
+        <li> <a href="informasjonskapsler.html"> Informasjonskapsler </a> </li>
+        <li> <a href="webserver.html"> Webserver </a> </li>
+        <li> <a href="planlegging.html"> Planlegging </a> </li>
+        <li> <a href="algoritmer.html"> Algoritmer </a> </li>
+        <li> <a href="egenvurdering.html"> Egenvurdering </a> </li>
+        <li> <a href="krigeniukraina.html"> Krigen i Ukraina </a> </li>
+        <li> <a href="avtale.html"> Avtale </a></li>
+    </ul>
+
+    <div class="hoved">
+        <div class="tekstfelt">
+            <h3> Hva finner du på nettstedet vårt? </h3>
+            <p> Velkommen til Stappfullt! I nettbutikken vår kan du finne alle slags varer i alle kategorier, samt legge inn
+                dine egne annonseringer. Hvis du ønsker å kontakte oss, kan du gjøre det på tlf 27220321 eller på email stappfullt@fakemail.com </p>
+        </div>
+        <img src="./images/pexels-mikhail-nilov-6613914.jpg" alt="Handlepose av Mikhail Nilov. Lisens: CC BY" title="Handlepose av Mikhail Nilov. Lisens: CC BY">
+    </div>
+
+    <div class="popup" id="popup">
+        <h1> Godkjenning av bruk av cookies </h1>
+        <p> Nettstedet bruker ikke cookies. Du bør likevel vite at eventuelle opplysninger du selv oppgir på nettstedet
+            vil bli lagret i vår database. For mer informasjon, klikk her: <a href="informasjonskapsler.html">
+                Informasjonskapsler </a></p>
+        <button id="btn-publiser"> Jeg forstår </button>
+    </div>
+
+<script>
+    let popupEl = document.getElementById("popup");
+    let popupKnapp = document.getElementById("btn-publiser")
+
+    //åpner popup hvis bruker har besøkt siden før
+    if (localStorage.besok) {
+        removePopup();
+    } else {
+        openPopup();
+    }
+
+    popupKnapp.addEventListener("click", removePopup);
+
+
+    function openPopup() {
+        localStorage.besok = 1;
+        popupEl.classList.add("open-popup");
+    }
+    function removePopup() {
+        popupEl.classList.remove("open-popup");
+    }
+</script>
+</body>
+</html>

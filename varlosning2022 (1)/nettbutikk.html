@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title> Stappfullt </title>
+    <link rel="stylesheet" href="varlosning.css">
+</head>
+<body>
+
+    <ul class="navbar">
+        <li> <a href="index.html"> Hjem </a> </li>
+        <li> <a class="active" href="nettbutikk.html"> Nettbutikk </a> </li>
+        <li> <a href="informasjonskapsler.html"> Informasjonskapsler </a> </li>
+        <li> <a href="webserver.html"> Webserver </a> </li>
+        <li> <a href="planlegging.html"> Planlegging </a> </li>
+        <li> <a href="algoritmer.html"> Algoritmer </a> </li>
+        <li> <a href="egenvurdering.html"> Egenvurdering </a> </li>
+        <li> <a href="krigeniukraina.html"> Krigen i Ukraina </a> </li>
+        <li> <a href="avtale.html"> Avtale </a></li>
+    </ul>
+
+    <ul class="buttonlist">
+        <li>
+            <select class="btn-innlegg" id="btn-innlegg">
+                <option value="navn"> Navn </option>
+                <option value="pris"> Pris </option>
+                <option value="kategori"> Kategori </option>
+                <option value="milliseconds"> Dato </option>
+            </select>
+        </li>
+
+        <li> <button type="submit" class="btn-innlegg" onclick="openPopup()"> Nytt Innlegg </button> </li>
+
+        <li>
+            <input type="text" id="sokefelt" class="btn-innlegg" placeholder="Søk etter tags...">
+        </li>
+    </ul>
+
+    <div id="innlegg">
+
+    </div>
+
+    <div class="popup" id="popup-nyttInnlegg">
+        <h2> Nytt Innlegg </h2>
+
+        <label for="navninput"> Name: </label>
+        <input id="navninput" type="text">
+
+        <label for="kategoriinput"> Category: </label>
+        <select id="kategoriinput">
+            <option value="invalid"> - category - </option>
+            <option> Entertainment </option>
+            <option> Furniture and interior </option>
+            <option> Tools and electronics </option>
+            <option> Clothes and cosmetics </option>
+            <option> Animals </option>
+        </select>
+
+        <label for="beskrivelseinput"> Description: </label>
+        <textarea id="beskrivelseinput"></textarea>
+
+        <label for="prisinput"> Price (USD):</label>
+        <input id="prisinput" type="number">
+
+        <label for="tagsinput"> Add tags. Use "," to divide tags.</label>
+        <div class="tags-input" data-name="tags-input" id="tagsinput">
+
+        </div>
+
+        <label for="bildeinput"> Upload an image: </label>
+        <input id="bildeinput" type="file" accept="image/png, image/jpeg">
+
+        <p id="alertP" style="color: red"></p>
+
+        <button id="btn-publiser"> Publish </button>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <script>
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdBAXijWxiwMUH5MgamQwJaqeN5mN_QLQ",
+            authDomain: "nettbutikk-c1fc2.firebaseapp.com",
+            projectId: "nettbutikk-c1fc2",
+            storageBucket: "nettbutikk-c1fc2.appspot.com",
+            messagingSenderId: "262083220130",
+            appId: "1:262083220130:web:cf7903779a327f0fb27dfb"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Lager en referanse til databasen
+        let db = firebase.firestore();
+
+        //henter ut html-elementene
+        let innleggEl = document.getElementById("innlegg");
+        let navnInputEl = document.getElementById("navninput");
+        let kategoriInputEl = document.getElementById("kategoriinput");
+        let beskrivelseInputEl = document.getElementById("beskrivelseinput");
+        let prisInputEl = document.getElementById("prisinput");
+        let imgInputEl = document.getElementById("bildeinput");
+        let alertEl = document.getElementById("alertP");
+        let btnSorter = document.getElementById("btn-innlegg");
+        let sokefeltEl = document.getElementById("sokefelt");
+
+
+        //skriver ut innleggene når du går inn på siden
+        sorterInnlegg();
+
+        //endrer rekkefølgen når nedtrykksmeny og søkefelt brukes
+        btnSorter.addEventListener("change", sorterInnlegg);
+        sokefeltEl.addEventListener("change", sorterInnlegg);
+
+
+        //funksjon som sorterer innleggene
+        function sorterInnlegg() {
+            //fjerner nåværende innlegg
+            innleggEl.innerHTML = "";
+
+            if (sokefeltEl.value.length === 0) {
+                sorterIkkeTags();
+            } else {
+                sorterTags();
+            }
+
+            function sorterTags() {
+                //sorterer og skriver ut innleggene
+                db.collection("varer").orderBy(btnSorter.value, "desc").get().then((snapshot) => {
+                    // Henter ut dokumentene
+                    let dokumenter = snapshot.docs;
+                    //for-løkke som kjører funksjonen for hvert dokument
+                    for (let i = 0; i < dokumenter.length; i++) {
+                        for (let j = 0; j < dokumenter[i].data().tags.length; j++) {
+                            if (sokefeltEl.value === dokumenter[i].data().tags[j]) {
+                                skrivUtInnlegg(dokumenter[i]);
+                            }
+                        }
+                    }
+                });
+            }
+
+            function sorterIkkeTags() {
+                if (btnSorter.value === "milliseconds") {
+                    //sorterer og skriver ut innleggene
+                    db.collection("varer").orderBy(btnSorter.value, "desc").get().then((snapshot) => {
+                        // Henter ut dokumentene
+                        let dokumenter = snapshot.docs;
+                        //for-løkke som kjører funksjonen for hvert dokument
+                        for (let i = 0; i < dokumenter.length; i++) {
+                            skrivUtInnlegg(dokumenter[i]);
+                        }
+                    });
+                } else {
+                    //sorterer og skriver ut innleggene
+                    db.collection("varer").orderBy(btnSorter.value, "asc").get().then((snapshot) => {
+                        // Henter ut dokumentene
+                        let dokumenter = snapshot.docs;
+                        //for-løkke som kjører funksjonen for hvert dokument
+                        for (let i = 0; i < dokumenter.length; i++) {
+                            skrivUtInnlegg(dokumenter[i]);
+                        }
+                    });
+                }
+            }
+
+        }
+
+        //funksjon som skriver ut innleggene
+        function skrivUtInnlegg(dokument) {
+
+            //lager elementene
+            let boxEl = document.createElement("div");
+            boxEl.classList.add("innleggBoks");
+            let navnEl = document.createElement("h2");
+            let kategoriEl = document.createElement("p");
+            kategoriEl.classList.add("gratext");
+            let prisEl = document.createElement("button");
+            let beskrivelseEl = document.createElement("p");
+            let bildeEl = document.createElement("img");
+            let datoEl = document.createElement("p");
+            datoEl.classList.add("gratext");
+            let tagsEl = document.createElement("ul");
+            tagsEl.classList.add("tags-input");
+            let deleteBtn = document.createElement("button");
+            deleteBtn.classList.add("deleteBtn");
+
+            //plotter inn verdiene
+            navnEl.innerHTML = dokument.data().navn;
+            kategoriEl.innerHTML = dokument.data().kategori;
+            prisEl.innerHTML = dokument.data().pris + " kr";
+            beskrivelseEl.innerHTML = dokument.data().beskrivelse;
+            datoEl.innerHTML = (dokument.data().month + 1) + "/" + dokument.data().date + "/" + dokument.data().year + ", " + dokument.data().hour + ":" + dokument.data().minutes;
+            bildeEl.setAttribute("src", dokument.data().img);
+            deleteBtn.innerHTML = "Slett Innlegg";
+            deleteBtn.setAttribute("data-id", dokument.id);
+            deleteBtn.addEventListener("click", slettInnlegg);
+            //legger til taggene
+            for (let i = 0; i < dokument.data().tags.length; i++) {
+                let liEl = document.createElement("li");
+                liEl.innerHTML = dokument.data().tags[i];
+                liEl.classList.add("tag");
+                tagsEl.appendChild(liEl);
+            }
+
+            //lager et <hr> element for styling
+            let hrEl = document.createElement("hr");
+
+            //legger inn elementene i innlegget
+            boxEl.appendChild(navnEl);
+            boxEl.appendChild(kategoriEl);
+            boxEl.appendChild(beskrivelseEl);
+            boxEl.appendChild(bildeEl);
+            boxEl.appendChild(hrEl);
+            boxEl.appendChild(tagsEl);
+            boxEl.appendChild(prisEl);
+            boxEl.appendChild(datoEl);
+            boxEl.appendChild(deleteBtn);
+            innleggEl.appendChild(boxEl);
+        }
+
+        //funksjon som sletter innlegg
+        function slettInnlegg(e) {
+            // Finner id-en til elementet som ble klikket
+            let id = e.target.getAttribute("data-id");
+            // Sletter dokumentet
+            db.collection("varer").doc(id).delete();
+        }
+
+
+        // Lytter etter endringer i databasen
+        db.collection("varer").onSnapshot(snapshot => {
+            sorterInnlegg();
+        });
+
+        // Tags:
+        let tagsList = [];
+
+
+        [].forEach.call(document.getElementsByClassName('tags-input'), function (el) {
+            let hiddenInput = document.createElement('input'),
+                mainInput = document.createElement('input')
+
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', el.getAttribute('data-name'));
+
+            mainInput.setAttribute('type', 'text');
+            mainInput.classList.add('main-input');
+            mainInput.addEventListener('input', function () {
+                let enteredTags = mainInput.value.split(','); //lager en ny tag etter ','
+                if (enteredTags.length > 1) {
+                    enteredTags.forEach(function (t) {
+                        let filteredTag = filterTag(t);
+                        if (filteredTag.length > 0)
+                            addTag(filteredTag);
+                    });
+                    mainInput.value = '';
+                }
+            });
+
+            mainInput.addEventListener('keydown', function (e) {
+                let keyCode = e.which || e.keyCode;
+                if (keyCode === 8 && mainInput.value.length === 0 && tagsList.length > 0) {
+                    removeTag(tagsList.length - 1);
+                }
+            });
+
+            el.appendChild(mainInput);
+            el.appendChild(hiddenInput);
+
+            function addTag (text) {
+                let tag = {
+                    text: text,
+                    element: document.createElement('span'),
+                };
+
+                tag.element.classList.add('tag');
+                tag.element.textContent = tag.text;
+
+                //mulighet til å slette tags
+                let closeBtn = document.createElement('span');
+                closeBtn.classList.add('close');
+                closeBtn.addEventListener('click', function () {
+                    removeTag(tagsList.indexOf(tag));
+                });
+                tag.element.appendChild(closeBtn);
+                tagsList.push(tag);
+                el.insertBefore(tag.element, mainInput);
+                refreshTags();
+            }
+
+            function removeTag (index) {
+                let tag = tagsList[index];
+                tagsList.splice(index, 1);
+                el.removeChild(tag.element);
+                refreshTags();
+            }
+
+            function refreshTags () {
+                let tagsList = [];
+                tagsList.forEach(function (t) {
+                    tagsList.push(t.text);
+                });
+                hiddenInput.value = tagsList.join(',');
+            }
+
+            function filterTag (tag) {
+                return tag.replace(/[^\w -]/g, '').trim().replace(/\W+/g, '-');
+            }
+        });
+
+
+
+        // Nytt innlegg:
+        let publiserBtn = document.getElementById("btn-publiser");
+        publiserBtn.addEventListener("click", publiserInnlegg);
+
+        //funksjon som legger til nytt innlegg
+        function publiserInnlegg() {
+            if (navnInputEl.value.length < 1) {
+                alertEl.innerHTML = "Vennligst gi innlegget ditt et navn.";
+            } else if (kategoriInputEl.value === "invalid") {
+                alertEl.innerHTML = "Vennligst velg en kategori.";
+            } else if (prisInputEl.value.length < 1) {
+                alertEl.innerHTML = "Vennligst oppgi en pris.";
+            } else if (imgInputEl.value < 1) {
+                alertEl.innerHTML = "Vennligst legg til et bilde.";
+            } else {
+                let toBase64 = file => new Promise((resolve, reject) => {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                });
+
+                //konverterer fil til base64
+                let uploadedFile = imgInputEl.files[0];
+                toBase64(uploadedFile)
+                    .then(res => {
+                        //for å få dato
+                        let d = new Date();
+                        //legger til et dokument med verdiene
+                        db.collection("varer").add({
+                            navn: navnInputEl.value,
+                            beskrivelse: beskrivelseInputEl.value,
+                            kategori: kategoriInputEl.value,
+                            pris: Number(prisInputEl.value),
+                            tags: tagsListToStringArray(),
+                            img: res,
+                            milliseconds: d.getTime(), //for å lett kunne sortere etter tid
+                            date: d.getDate(),
+                            month: d.getMonth(),
+                            year: d.getFullYear(),
+                            hour: d.getHours(),
+                            minutes: d.getMinutes()
+                        });
+
+                    //resetter inputfeltene
+                    closePopup();
+                    alertEl.innerHTML = "";
+                    navnInputEl.value = "";
+                    kategoriInputEl.value = "invalid";
+                    beskrivelseInputEl.value = "";
+                    prisInputEl.value = 0;
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        }
+
+        //funksjon som legger til taggene i en array
+        function tagsListToStringArray() {
+            let strArray = [];
+            for(let i = 0; i<tagsList.length; i++) {
+                strArray.push(tagsList[i].text);
+            }
+            return strArray;
+        }
+
+
+        //åpner opp 'nytt innlegg'-popup
+        let popupEl = document.getElementById("popup-nyttInnlegg");
+
+        function openPopup(){
+            popupEl.classList.add("open-popup");
+        }
+        function closePopup(){
+            popupEl.classList.remove("open-popup");
+        }
+
+
+
+    </script>
+</body>
+</html>

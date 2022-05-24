@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title> Webserver </title>
+    <link rel="stylesheet" href="varlosning.css">
+</head>
+<body>
+
+    <ul class="navbar">
+        <li> <a href="index.html"> Hjem </a> </li>
+        <li> <a href="nettbutikk.html"> Nettbutikk </a> </li>
+        <li> <a href="informasjonskapsler.html"> Informasjonskapsler </a> </li>
+        <li> <a class="active" href="webserver.html"> Webserver </a> </li>
+        <li> <a href="planlegging.html"> Planlegging </a> </li>
+        <li> <a href="algoritmer.html"> Algoritmer </a> </li>
+        <li> <a href="egenvurdering.html"> Egenvurdering </a> </li>
+        <li> <a href="krigeniukraina.html"> Krigen i Ukraina </a> </li>
+        <li> <a href="avtale.html"> Avtale </a> </li>
+    </ul>
+
+    <div class="tekstfelt">
+        <h1> Webserver </h1>
+        <h3> Programvare </h3>
+        <p> Når vi setter opp en server lokalt, bruker vi Wampserver, men dersom for en bedrift eller kunde, er det
+            vanligere å bruke en open-source server. Bedrifter bruker som regel Tomcat, Microsoft ISS eller Apache </p>
+        <h3> Hardware </h3>
+        <p> Maskinen som benyttes dimensjoneres etter hvor mange som skal besøke nettsiden. For en liten klubb eller
+            forening holder det med en vanlig PC koblet til nett, mens det for større bedrifter er nødvendig med større
+            servere. Man kan eventuelt kjøpe tjenester i skyen, altså betale for å kjøre på andre maskiner. </p>
+        <h3> Operativsystem </h3>
+        <p> Operativsystemet er det som binder maskinvaren og bruker sammen, og som gir muligheten til å kjøre
+            programvare (drivere til maskinvaren). Det er populært med Tomcat og Apache for unix-baserte OS, og Windows
+            ISS som kjøres på Windows-server OS. </p>
+        <h3> Nettverk </h3>
+        <p> Nettsiden plasseres på innsiden av en brannmur slik at den skal beskyttes mot uønsket trafikk. Det er gjerne
+            en reverse-proxy i mellomleddet melom url og ip-adressen til den interne maskinen. Man kan i det interne
+            nettverket koble til flere servere både som backup og for å håndtere mye trafikk. Da fordeles trafikken på
+            flere servere. I reverse-proxyen installerer man et kjøpt sertifikat som knyttes til et domenenavn. Dette
+            domenenavnet kobles til ip-adressen på reverse-proxyen som er eksponert på internett. Sertifikatet sørger
+            for at url-en leder til riktig ip-adresse. </p>
+        <h3> Portnummer </h3>
+        <p> Portnummeret er en del av ip-protokollen, og er nødvendig for at to maskiner skal kunne kommunisere. En del
+            portnummer er reservert til kjente bruksområder. Dette er for å ha struktur og oversikt. En brannmur har i
+            oppgave å åpne opp for visse porter, slik at bare ønsket trafikk slipper forbi. Dersom man ønsker å
+            offentliggjøre en server, må man gå inn i brannmuren og åpne for den korresponderende porten. Når vi
+            kommuniserer med Firebase, som er en skytjeneste, bruker vi https, altså 443. </p>
+    </div>
+</body>
+</html>

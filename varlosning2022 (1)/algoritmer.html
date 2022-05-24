@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title> Algoritmer </title>
+    <link rel="stylesheet" href="varlosning.css">
+</head>
+<body>
+
+    <ul class="navbar">
+        <li> <a href="index.html"> Hjem </a> </li>
+        <li> <a href="nettbutikk.html"> Nettbutikk </a> </li>
+        <li> <a href="informasjonskapsler.html"> Informasjonskapsler </a> </li>
+        <li> <a href="webserver.html"> Webserver </a> </li>
+        <li> <a href="planlegging.html"> Planlegging </a> </li>
+        <li> <a class="active" href="algoritmer.html"> Algoritmer </a> </li>
+        <li> <a href="egenvurdering.html"> Egenvurdering </a> </li>
+        <li> <a href="krigeniukraina.html"> Krigen i Ukraina </a> </li>
+        <li> <a href="avtale.html"> Avtale </a></li>
+    </ul>
+
+    <div class="tekstfelt">
+        <h1> Algoritmer </h1>
+        <h3> Hente ut data </h3>
+        <p> Hver gang et nytt innlegg skal skrives ut, lages det et nytt element for innlegget ved ved bruk av
+            createElement(). Nye elementer lages også på samme måte for alt av informasjon som ligger i databasen, som
+            blir lagt til under elementet ved bruk av appendChild()-funksjonen. Hvert av innleggene legges inn i et
+            div-element med flexbox-egenskaper slik at innleggene legger seg bortover på en linje. </p>
+        <h3> Legge til data </h3>
+        <p> Jeg lagde en knapp som, når den trykkes, åpner en popup med diverse input-felter. Lager deretter et dokument
+            med input-verdiene i Firebase. </p>
+        <img style="max-height: 300px" src="./images/algoritme_lage.png" alt="Funksjon som lager et nytt dokuement i databasen.">
+        <h3> Slette data </h3>
+        <p> Et av elementene i hvert innlegg er en knapp som kjører funksjonen slettInnlegg. Det er en veldig enkel
+            funksjon som først finner id-en til dokumentet og deretter sletter det fra Firebase. </p>
+        <img style="max-height: 170px" src="./images/algoritme_slette.png" alt="Funksjon som sletter et dokument i databasen.">
+        <h3> Sortere data </h3>
+        <p> Hver gang innleggene skal skrives ut, blir de først sortert. For å sortere dokumentene når de hentes ut ifra
+            databasen, brukes orderBy() som velger hvilken av verdiene dokumentene skal sorteres etter. Dersom de skal
+            sorteres etter dato, skjer det ved sortering etter antall millisekunder siden 1. januar 1970 (getTime()
+            ). </p>
+        <img style="max-height: 190px" src="./images/algoritme_sorter1.png" alt="Funksjon som sorterer dokumentene.">
+        <p> Nettsiden gir også mulighet til å kun skrive ut innleggene med en viss tag. Programmet sjekker først om
+            bruker har søkt på noen tags, og dersom det stemmer, vil en for-løkke se igjennom alle dokumentene og kun
+            plukke ut de som har den samme taggen. </p>
+        <img style="max-height: 400px" src="./images/algoritme_sorter2.png" alt="Funksjon som sorterer dokumentene etter tags.">
+        <hr>
+        <h3> Sortere større mengder data </h3>
+        <p> Når man skal sortere større mengder data, bruker man ofte mer effektive algoritmer. Et eksempel er insertion
+            sort, der det skilles mellom sortert og usortert data. Se for deg en tallrekke som du skal sortere i
+            stigende rekkefølge. Programmet trenger ikke nødvendigvis å sammenligne alle dataene, men kun se igjennom
+            ett og ett tall frem til den finner et tall som er større.</p>
+    </div>
+</body>
+</html>

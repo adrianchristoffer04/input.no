@@ -1,0 +1,282 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,100,700,900);
+
+body {
+    margin: 0;
+    background-color: #f0f0f0;
+}
+
+/* Hero Image */
+.hero-image {
+    width: 100%;
+    padding:60px 0;
+    text-align: center;
+    background: #D9D5D2;
+    color: #242426;
+}
+.hero-text h1 {
+    font-size: 3.2em;
+    padding: 10px 0;
+    font-weight: 800;
+}
+.hero-text p {
+    font-size: 1.4em;
+    font-weight: 100;
+    letter-spacing: 10px;
+}
+.btn-bgstroke {
+    font-size: 20px;
+    display: inline-block;
+    border: 1px solid #242426;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 350;
+    margin-top: 30px;
+    text-decoration: none;
+    color: #242426;
+    font-family: 'Lato';
+}
+.btn-bgstroke:hover {
+    background-color: #242426;
+    color: #D9D5D2;
+}
+
+/* Navigasjonsbar */
+.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #242426;
+    font-family: Roboto, sans-serif;
+    box-shadow: -0px 5px 10px -5px #242426;
+    position: sticky;
+}
+.navbar li {
+    float: left;
+}
+.navbar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.navbar > li a:hover:not(.active) {
+    text-underline: black;
+}
+.navbar > li a.active {
+    background-color: #3F3A40;
+}
+
+
+
+/* Tekstfelt */
+
+.hoved {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    height: 500px;
+    font-size: 18px;
+}
+.hoved .tekstfelt {
+    margin: 100px 40px 100px 100px;
+    text-align: center;
+    font-family: Bookman Old Style, serif;
+}
+.tekstfelt {
+    font-family: Bookman Old Style, serif;
+    margin: 80px;
+}
+.hoved img {
+    max-width: 400px;
+    margin: 100px 100px 100px 40px;
+}
+
+.universell-utforming-tabell p {
+    font-family: Bookman Old Style, serif;
+    font-size: 20px;
+    margin: 0 100px;
+}
+
+.universell-utforming-tabell table {
+    margin: 20px 100px;
+}
+
+.universell-utforming-tabell table, th, td {
+    border: 2px solid #D9D5D2;
+    border-collapse: collapse;
+    padding: 5px;
+    font-size: 15px;
+}
+.universell-utforming-tabell th, td {
+    background-color: white;
+}
+
+/* Nettbutikk */
+
+#innlegg {
+    display: flex;
+    flex-flow: row wrap;
+}
+.innleggBoks {
+    width: 300px;
+    padding: 5px 20px;
+    margin: 20px;
+    background: #fff;
+    box-shadow: 1px 3px 5px #242426;
+    border: 2px solid #242426;
+}
+.innleggBoks h2 {
+    font-family: "Franklin Gothic", sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+}
+.innleggBoks p {
+    font-family: Georgia, Serif;
+    font-size: 14px;
+}
+.innleggBoks img {
+    height: 200px;
+    max-width: 260px;
+}
+.innleggBoks button {
+    padding: 5px 20px;
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+    font-family: "Franklin Gothic", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    box-shadow: 1px 3px 5px #242426;
+    border: 2px solid #242426;
+    border-radius: 10px;
+    height: 40px;
+    float: right;
+    margin: 20px;
+}
+.innleggBoks button:hover {
+    cursor: pointer;
+}
+.innleggBoks .deleteBtn:hover {
+    cursor: pointer;
+    background-color: red;
+}
+.innleggBoks .gratext {
+    color: gray;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    text-align: center;
+}
+.innleggBoks hr {
+    border-top: 2px solid #242426;
+    margin: 20px 0;
+}
+.innleggBoks .tags-input {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+/* Pop-up */
+
+.buttonlist {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+.buttonlist li {
+    float: left;
+    list-style-type: none;
+    margin: 10px;
+}
+.btn-innlegg {
+    padding: 5px 20px;
+    background: #fff;
+    outline: none;
+    cursor: pointer;
+    font-family: "Franklin Gothic", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    box-shadow: 1px 3px 5px #242426;
+    border: 2px solid #242426;
+    height: 45px;
+}
+.popup {
+    width: 500px;
+    background: #fff;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border: 5px solid #242426;
+    transform: translate(-50%, -50%) scale(0.1);
+    padding: 0 30px 30px;
+    color: #333;
+    visibility: hidden;
+    transition: transform 0.3s, top 0.3s;
+}
+.popup input, .popup select, .popup textarea, .popup .tags-input {
+    display: block;
+    border: 1px solid black;
+    margin-bottom: 15px;
+}
+.popup label {
+    font-family: "Franklin Gothic", sans-serif;
+}
+.open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+.popup button {
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px 0;
+    background: #6fd649;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Tags */
+
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.tags-input {
+    display: inline-block;
+}
+.tags-input .tag {
+    font-size: 85%;
+    padding: 0.5em 0.75em;
+    margin: 0.25em 0.1em;
+    display: inline-block;
+    background-color: #ddd;
+    transition: all 0.1s linear;
+    cursor: pointer;
+}
+.tags-input .tag:hover {
+    background-color: #BBB;
+    color: white;
+}
+.tags-input .tag .close::after {
+    content: '×';
+    font-weight: bold;
+    display: inline-block;
+    transform: scale(1.4);
+    margin-left: 0.75em;
+}
+.tags-input .tag .close:hover::after {
+    color: red;
+}
+.tags-input .main-input {
+    border: 0;
+    outline: 0;
+    padding: 0.5em 0.1em;
+}
